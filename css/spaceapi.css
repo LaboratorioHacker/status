@@ -121,9 +121,11 @@ h2 {
 
 #button.open {
     background: url('/img/button/green.png') no-repeat;
+    background-size: 100% auto;
 }
 #button.closed {
     background: url('/img/button/red.png') no-repeat;
+    background-size: 100% auto;
 }
 #button.undefined {
     background: url('/img/button/gray.png') no-repeat;

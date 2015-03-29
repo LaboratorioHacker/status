@@ -1,12 +1,12 @@
 {
     "api": "0.13",
-    "space": "The space name",
-    "logo": "http://your-space.com/logo.png",
-    "url": "http://example.com",
+    "space": "Laboratório Hacker",
+    "logo": "http://status.laboratoriohacker.org/logo.png",
+    "url": "http://laboratoriohacker.org/",
     "location": {
-        "address": "see the documentation",
-        "lon": 5.973817,
-        "lat": 39.240431
+        "address": "Avenida Batista Bonoto Sobrinho, 733, Sala 412/2 | Santiago - RS",
+        "lon": -54.8852932,
+        "lat": -29.194061
     },
     "spacefed": {
         "spacenet": false,
@@ -14,36 +14,23 @@
         "spacephone": false
     },
     "contact": {
-        "twitter": "@example",
-        "email": "e@xample.com",
-        "irc": "irc://irc.freenode.net/example",
-        "ml": "public@lists.example.com",
-        "issue_mail": "ZUB4YW1wbGUuY29tCg=="
+        "facebook": "http://facebook.com/LaboratorioHacker",
+	"ml": "labhacker@lists.laboratoriohacker.org"
     },
     "issue_report_channels": [
-        "issue_mail"
+        "ml"
     ],
     "state": {
+	"icon": {
+            "open": "http://status.laboratoriohacker.org/aberto.png",
+            "closed": "http://status.laboratoriohacker.org/fechado.png"
+        },
         "open": null
     },
     "projects": [
-        "http://github.com/example"
+        "http://projetos.laboratoriohacker.org/"
     ],
     "cache": {
         "schedule": "m.02"
-    },
-    "sensors": {
-        "temperature": [
-            {
-                "value": null,
-                "unit": "°C",
-                "location": "Roof"
-            },
-            {
-                "value": null,
-                "unit": "°De",
-                "location": "Lab"
-            }
-        ]
     }
 }

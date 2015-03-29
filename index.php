@@ -49,9 +49,10 @@ switch(get_controller()) {
                 // convert the json to an associative array
                 $sensors = json_decode($sensors, true);
 
-                if(! is_null($sensors))
+                if(! is_null($sensors)){
                     save_sensors($sensors);
-                else
+                    notify($sensors);
+                } else
                     die('Invalid JSON: '. $sensors);
 
                 break;
@@ -121,6 +122,23 @@ function save_sensors($sensors, $path = "") {
     }
 }
 
+###########################################
+# SEND NOTIFICATION EMAIL
+
+function notify($sensors){
+
+    if($sensors['state']['open'])
+        $status = 'open';
+    else
+        $status = 'closed';
+
+    $subject = json_decode(file_get_contents('spaceapi.json'), true)['space'].' status updated: '.$status;
+
+    $message = 'Status updated to "'.$status.'" at '.date(DATE_RFC2822).' from '.$_SERVER['REMOTE_ADDR'].'('.$_SERVER['HTTP_USER_AGENT'].')';
+
+    mail("update@status.laboratoriohacker.org", $subject, $message, 'From: Status - LabHacker <status@laboratoriohacker.org>');
+
+}
 
 ###########################################
 # BASIC ROUTING HELPERS
@@ -212,7 +230,6 @@ function output_html() {
     header('Content-type: text/html; charset=UTF-8');
 
     $template = file_get_contents('template.html');
-    $monster = file_get_contents('img/monster/monster.svg');
 
     $protocol = ($_SERVER['SERVER_PORT'] === 443 ||
         @$_SERVER['HTTPS'] === 'on' ||
@@ -223,8 +240,7 @@ function output_html() {
         . $_SERVER['REQUEST_URI'];
 
     // substitute template variables
-    $html = str_replace('{{ monster }}', $monster, $template);
-    $html = str_replace('{{ baseurl }}', $base_url, $html);
+    $html = str_replace('{{ baseurl }}', $base_url, $template);
 
     // remove comments
     $html = preg_replace('/{#.*#}/', '', $html);
