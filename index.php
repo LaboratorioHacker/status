@@ -79,6 +79,11 @@ switch(get_controller()) {
                 output_json();
                 break;
 
+            case 'bash':
+
+                output_bash();
+                break;
+
             default:
 
                 output_html();
@@ -314,6 +319,76 @@ function output_json() {
     }
 
     echo json_encode($spaceapi);
+}
+
+function output_bash() {
+
+    header('Content-type: text/plain');
+    header('Access-Control-Allow-Origin: *');
+    header('Cache-Control: no-cache');
+
+    $json = file_get_contents('spaceapi.json');
+
+    $spaceapi = json_decode($json, true);
+
+    $sensor_data = glob('data/*');
+
+    if  (!empty($sensor_data)) {
+        foreach(glob('data/*') as $file) {
+
+            $file_content = file_get_contents($file);
+
+            list($type, $value) = explode(':', $file_content);
+            settype($value, $type);
+
+            // here we take the file name of a data file (in the data dir)
+            // and create a list of indices which will be to address the
+            // corresponding field in the spaceapi.json template.
+            $array_path = basename($file);
+            $array_path = explode('.', $array_path);
+
+            // get a reference of the spaceapi, see the explanation later
+            $sub_array = &$spaceapi;
+
+            $do_write_value = true;
+            foreach($array_path as $path_segment) {
+
+                // here we check if the sensor (or what we pushed to the
+                // endpoint scripts) is defined in the template, if it's
+                // not we will skip the value. The skip is done via a flag
+                // since we cannot use continue because we'd need to
+                // tell the outer loop to continue but not the current one
+                // we're currently in
+                if(!array_key_exists($path_segment, $sub_array))
+                {
+                    $do_write_value = false;
+                    break;
+                }
+
+                // get the sub array of the spaceapi data structure (taken
+                // from the template) while we walk along the path according
+                // the file name (sliced into indices)
+                $sub_array = &$sub_array[$path_segment];
+            }
+
+            // finally merge the value of the data file into the spaceapi
+            // data structure
+            if($do_write_value)
+                $sub_array = $value;
+        }
+    }
+
+    $message = $spaceapi['space'].' is ';
+
+    if ($spaceapi['state']['open'])
+        $message .= '\e[42m\e[1;37m open \e[m';
+    else
+        $message .= "\e[41m\e[1;37m closed \e[m";
+
+    $message .= " (updated by ".$spaceapi['state']['trigger_person']." at ".date(DATE_RFC2822, $spaceapi['state']['lastchange']).")";
+
+    echo $message;
+
 }
 
 
