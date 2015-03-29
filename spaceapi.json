@@ -15,22 +15,33 @@
     },
     "contact": {
         "facebook": "http://facebook.com/LaboratorioHacker",
-	"ml": "labhacker@lists.laboratoriohacker.org"
+	    "ml": "labhacker@lists.laboratoriohacker.org"
     },
     "issue_report_channels": [
         "ml"
     ],
     "state": {
-	"icon": {
+	    "icon": {
             "open": "http://status.laboratoriohacker.org/aberto.png",
             "closed": "http://status.laboratoriohacker.org/fechado.png"
         },
         "open": null
     },
+    "feeds": {
+        "blog": {
+            "type": "rss",
+            "url": "http://laboratoriohacker.org/feed/"
+        },
+        "wiki": {
+            "type": "atom",
+            "url": "http://wiki.laboratoriohacker.org/api.php?hidebots=1&days=7&limit=50&action=feedrecentchanges&feedformat=atom"
+        }
+    },
     "projects": [
-        "http://projetos.laboratoriohacker.org/"
+        "http://projetos.laboratoriohacker.org/",
+        "https://github.com/LaboratorioHacker"
     ],
     "cache": {
-        "schedule": "m.02"
+        "schedule": "m.10"
     }
 }
