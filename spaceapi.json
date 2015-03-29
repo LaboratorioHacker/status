@@ -26,6 +26,7 @@
             "closed": "http://status.laboratoriohacker.org/fechado.png"
         },
         "open": null,
+        "lastchange": null,
         "trigger_person": null
     },
     "feeds": {

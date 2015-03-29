@@ -51,8 +51,10 @@ switch(get_controller()) {
                 // convert the json to an associative array
                 $sensors = json_decode($sensors, true);
 
-                if (isset($sensors['state']['open']))
+                if (isset($sensors['state']['open'])) {
                     $sensors['state']['trigger_person'] = array_search($client_key, $keys);
+                    $sensors['state']['lastchange'] = time();
+                }
 
                 if(! is_null($sensors)){
                     save_sensors($sensors);
