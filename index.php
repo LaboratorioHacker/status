@@ -5,6 +5,8 @@
 $config = json_decode(file_get_contents('config.json'));
 $key = $config->api_key;
 
+date_default_timezone_set('America/Sao_Paulo');
+
 switch(get_controller()) {
 
     case 'sensor':
