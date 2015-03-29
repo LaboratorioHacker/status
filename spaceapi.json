@@ -25,7 +25,8 @@
             "open": "http://status.laboratoriohacker.org/aberto.png",
             "closed": "http://status.laboratoriohacker.org/fechado.png"
         },
-        "open": null
+        "open": null,
+        "trigger_person": null
     },
     "feeds": {
         "blog": {

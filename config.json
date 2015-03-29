@@ -1,3 +1,8 @@
 {
-    "api_key": "e4piu0m0cdgogj190ygifvbu2qrc8wvo81zd"
+    "api_keys": {
+        "user1":	"cNeQBSmv7ET1MfbeMxVLunp6etYT4ApXOycOtuAv",
+        "user2":	"2WGS5FkSld3z4kQZN0OytKBaAuHYlJ6t4IUiKf2j",
+        "user3":	"kb7owigFnrHI60XtjONQ3ZUV4MYP7r1OzZf2Lr4O",
+        "user4":	"VhNL0oQ6VU9jevUY1fx0xBMAIRUfsCApHMPvSc9X"
+    }
 }

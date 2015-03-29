@@ -2,8 +2,8 @@
 
 // a random string that you need to pass to this script if you want
 // to update some sensor values
-$config = json_decode(file_get_contents('config.json'));
-$key = $config->api_key;
+$config = json_decode(file_get_contents('config.json'), true);
+$keys = $config['api_keys'];
 
 date_default_timezone_set('America/Sao_Paulo');
 
@@ -42,7 +42,7 @@ switch(get_controller()) {
                         break;
                 }
 
-                if($client_key !== $key)
+                if(!in_array($client_key, $keys))
                 {
                     header('HTTP/1.0 403 Forbidden');
                     die('Wrong key');
@@ -50,6 +50,9 @@ switch(get_controller()) {
 
                 // convert the json to an associative array
                 $sensors = json_decode($sensors, true);
+
+                if (isset($sensors['state']['open']))
+                    $sensors['state']['trigger_person'] = array_search($client_key, $keys);
 
                 if(! is_null($sensors)){
                     save_sensors($sensors);
@@ -111,8 +114,6 @@ function save_sensors($sensors, $path = "") {
             save_sensors($value, $new_path);
         } else {
 
-            $key = key($sensors);
-            $value = $sensors[$key];
             $type = gettype($value);
 
             // instead of determing the type of what the sensor
@@ -136,7 +137,7 @@ function notify($sensors){
 
     $subject = json_decode(file_get_contents('spaceapi.json'), true)['space'].' status updated: '.$status;
 
-    $message = 'Status updated to "'.$status.'" at '.date(DATE_RFC2822).' from '.$_SERVER['REMOTE_ADDR'].'('.$_SERVER['HTTP_USER_AGENT'].')';
+    $message = 'Status updated to "'.$status.'" at '.date(DATE_RFC2822).' by '.$sensors['state']['trigger_person'].' from '.$_SERVER['REMOTE_ADDR'].'('.$_SERVER['HTTP_USER_AGENT'].')';
 
     mail("update@status.laboratoriohacker.org", $subject, $message, 'From: Status - LabHacker <status@laboratoriohacker.org>');
 
