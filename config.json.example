@@ -4,5 +4,9 @@
         "user2":	"2WGS5FkSld3z4kQZN0OytKBaAuHYlJ6t4IUiKf2j",
         "user3":	"kb7owigFnrHI60XtjONQ3ZUV4MYP7r1OzZf2Lr4O",
         "user4":	"VhNL0oQ6VU9jevUY1fx0xBMAIRUfsCApHMPvSc9X"
+    },
+    "telegram": {
+    	"token":	"9r0ov00zcfwczq8emk64cfcqrz9jwjcd",
+    	"group":	"342190"
     }
 }

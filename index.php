@@ -148,6 +148,10 @@ function notify($sensors){
 
     mail("update@status.laboratoriohacker.org", $subject, $message, 'From: Status - LabHacker <status@laboratoriohacker.org>');
 
+    $telegram = json_decode(file_get_contents('config.json'), true)['telegram'];
+
+    file_get_contents("https://jaconda.im/api/v1/endpoint/groups/".$telegram['group']."/messages?token=".$telegram['token']."&text=".urlencode("LabHacker ".$message));
+
 }
 
 ###########################################
